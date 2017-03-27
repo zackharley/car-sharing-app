@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js"
+    "clean": "rm -rf client/dist && cd client && mkdir dist && cd dist && mkdir public && cd ../../",
+    "copy": "cp client/src/index.html client/dist/public",
+    "build": "webpack --config client/webpack.config.js",
+    "start": "npm run clean && npm run copy && npm run build && node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +20,27 @@
   },
   "homepage": "https://github.com/zackharley/car-sharing-app#readme",
   "dependencies": {
+    "axios": "^0.15.3",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "mysql": "^2.13.0"
+    "mysql": "^2.13.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
-    "morgan": "^1.8.1"
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "css-loader": "^0.27.3",
+    "morgan": "^1.8.1",
+    "node-sass": "^4.5.1",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.0",
+    "webpack": "^2.3.2"
   }
 }

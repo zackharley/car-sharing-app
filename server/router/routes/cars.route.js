@@ -1,10 +1,13 @@
 const router = require('express').Router();
-const carCtrl = require('../../controllers/car.controller');
+const carsCtrl = require('../../controllers/cars.controller');
 
-router.get('/', carCtrl.list);
+/* All routes are preceeded with `/api` */
 
-router.post('/', carCtrl.add);
+router.get('/', carsCtrl.list);
+router.post('/', carsCtrl.add);
 
-router.get('/:car', carCtrl.get);
+router.get('/:vin', carsCtrl.get);
+router.put('/:vin', carsCtrl.update);
+router.delete('/:vin', carsCtrl.delete);
 
 module.exports = router;
