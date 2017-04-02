@@ -1,6 +1,7 @@
 import './Register.scss';
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Router } from 'react-router';
 
 export default class Register extends Component {
 
@@ -22,7 +23,7 @@ export default class Register extends Component {
 		    LicenseNumber: '',
 		    LicenseNumberConfirm: ''
 		};
-	}
+	} 
 
 	handleFirstNameChange(e) {
 		this.setState({
@@ -120,10 +121,17 @@ export default class Register extends Component {
 		let formData = this.state;
 		delete formData.LicenseNumberConfirm;
 
+		let PhoneNumber = formData.PhoneNumber.split('-');
+
+		formData.CountryCode = PhoneNumber[0];
+		formData.AreaCode = PhoneNumber[1];
+		formData.PhoneNumber = PhoneNumber[2] + PhoneNumber[3];
+
+		let _this = this;
 		axios.post('/api/members', formData)
 			.then((response) => {
-				// redirect to app
 				console.log(response);
+				_this.props.history.push('/register/success');
 			})
 			.catch((error) => {
 				// Somehow figure out what the error was
