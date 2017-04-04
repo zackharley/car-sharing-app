@@ -1,10 +1,12 @@
 const router = require('express').Router();
 const carsCtrl = require('../../controllers/cars.controller');
 
-/* All routes are preceeded with `/api` */
+/* All routes are preceeded with `/api/cars` */
 
 router.get('/', carsCtrl.list);
 router.post('/', carsCtrl.add);
+
+router.get('/available', carsCtrl.available);
 
 router.get('/:vin', carsCtrl.get);
 router.put('/:vin', carsCtrl.update);

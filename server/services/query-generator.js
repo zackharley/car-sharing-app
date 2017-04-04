@@ -21,5 +21,9 @@ module.exports = {
 		}).join(',');
 
 		return `UPDATE ${table} SET ${updates} WHERE ${conditional}`;
+	},
+
+	carsAvailableOverRange(pickUpDate, dropOffDate) {
+		return `SELECT VIN FROM cars_and_reservations WHERE (DropOffDate >= "${pickUpDate}" && DropOffDate <= "${dropOffDate}") || (pickUpDate >= "${pickUpDate}" && pickUpDate <= "${dropOffDate}") || (pickUpDate <= "${pickUpDate}" && DropOffDate >= "${dropOffDate}")`;
 	}
 };

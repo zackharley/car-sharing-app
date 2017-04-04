@@ -8,6 +8,7 @@ import Register from './Register/Register';
 import Success from './Register/Success/Success';
 import Header from './App/Header';
 import Cars from './App/Cars/Cars';
+import Car from './App/Cars/Car/Car';
 
 const Root = ({ store }) => (
 	<Provider store={store}>
@@ -18,7 +19,8 @@ const Root = ({ store }) => (
 				<Route exact path='/register/success' component={Success} />
 				<Route path='/app' component={Header} />
 				<Switch>
-					<Route path='/app/cars' component={Cars} />
+					<Route exact path='/app/cars' component={Cars} />
+					<Route path='/app/cars/:vin' component={Car} />
 				</Switch>
 			</section>
 		</BrowserRouter>

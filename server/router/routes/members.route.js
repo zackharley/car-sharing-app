@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const memberCtrl = require('../../controllers/members.controller');
 
-/* All routes are preceeded with `/api` */
+/* All routes are preceeded with `/api/members` */
 
 router.get('/', memberCtrl.list);
 router.post('/', memberCtrl.add);

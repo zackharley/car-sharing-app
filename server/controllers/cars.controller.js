@@ -1,5 +1,6 @@
 const connection = require('../db');
 const queryGenerator = require('../services/query-generator');
+const dateService = require('../services/date-service');
 
 module.exports = {
 
@@ -36,6 +37,28 @@ module.exports = {
 				res.send(result);
 			}
 		});
+	},
+
+	// GET `/api/cars/available`
+	available(req, res, next) {
+		const pickUpDate = req.query.pickup;
+		const dropOffDate = req.query.dropoff;
+
+		if(dateService.isValidDate(pickUpDate) && dateService.isValidDate(dropOffDate)) {
+			const getAvailableCarsQuery = queryGenerator.carsAvailableOverRange(pickUpDate, dropOffDate);
+			connection.query(getAvailableCarsQuery, (error, response) => {
+				if(error) {
+					next(error);
+				} else {
+					res.send(response);
+				}
+			});
+		} else {
+			next({
+				message: 'You must supply a pick date and a drop off date, both in the format "YYYY-MM-DD"',
+				status: 400
+			});
+		}
 	},
 
 	// PUT `/api/cars/:vin`

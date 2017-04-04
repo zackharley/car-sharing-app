@@ -4,7 +4,6 @@ const queryGenerator = require('../services/query-generator');
 module.exports = {
 
 	list(req, res, next) {
-		console.log('Hittign it');
 		connection.query('SELECT * FROM member', (error, response) => {
 			if(error) {
 				next(error);
