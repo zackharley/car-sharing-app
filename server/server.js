@@ -9,7 +9,6 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 connection.connect();
-
 app.use(express.static(path.join(__dirname, '../client/dist/public')));
 app.use(morgan('combined'));
 app.use(bodyParser.json());

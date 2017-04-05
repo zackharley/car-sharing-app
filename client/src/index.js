@@ -1,12 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore } from 'redux';
-import reducers from './reducers';
-import Root from './components/Root';
-
-let store = createStore(reducers);
+import Router from './components/Router';
 
 render(
-	<Root store={store} />,
+	<Router/>,
 	document.getElementById('root')
 );

@@ -25,9 +25,16 @@ export default class Car extends Component {
 			})
 	}
 
+	handleReserveCar(e) {
+		console.log('Reserving car');
+	}
+
 	render() {
 		return (
-			<h1>{this.props.match.params.vin}</h1>
+			<section>
+				<h1>{this.props.match.params.vin}</h1>
+				<button onClick={this.handleReserveCar.bind(this)}>Reserve Car</button>
+			</section>
 		);
 	}
 

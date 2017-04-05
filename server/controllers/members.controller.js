@@ -15,6 +15,7 @@ module.exports = {
 
 	add(req, res, next) {
 		const addMemberQuery = queryGenerator.insert('member', req.body);
+		console.log(addMemberQuery);
 		connection.query(addMemberQuery, (error, response) => {
 			if(error) {
 				next(error);

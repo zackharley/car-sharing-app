@@ -103,7 +103,7 @@ export default class Cars extends Component {
 
 	handleTableRowClick(e) {
 		const vin = e.currentTarget.id;
-		this.props.history.push(`/app/cars/${vin}`);
+		this.props.history.push(`/cars/${vin}`);
 	}
 
 	render() {

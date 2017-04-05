@@ -1,4 +1,9 @@
 module.exports = {
+
+	list(table) {
+		return `SELECT * FROM ${table}`;
+	},
+
 	insert(table, object) {
 		const keys = Object.keys(object);
 
@@ -26,4 +31,5 @@ module.exports = {
 	carsAvailableOverRange(pickUpDate, dropOffDate) {
 		return `SELECT VIN FROM cars_and_reservations WHERE (DropOffDate >= "${pickUpDate}" && DropOffDate <= "${dropOffDate}") || (pickUpDate >= "${pickUpDate}" && pickUpDate <= "${dropOffDate}") || (pickUpDate <= "${pickUpDate}" && DropOffDate >= "${dropOffDate}")`;
 	}
+
 };

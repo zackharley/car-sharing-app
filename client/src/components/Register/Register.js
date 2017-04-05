@@ -11,6 +11,8 @@ export default class Register extends Component {
 			FirstName: '',
 			MiddleInit: '',
 		    LastName: '',
+		    Passwd: '',
+		    PasswdConfirm: '',
 		    StreetNum: '',
 		    StreetName: '',
 		    City: '',
@@ -43,8 +45,19 @@ export default class Register extends Component {
 		});
 	}
 
+	handlePasswdChange(e) {
+		this.setState({
+			Passwd: e.target.value
+		});
+	}
+
+	handlePasswdConfirmChange(e) {
+		this.setState({
+			PasswdConfirm: e.target.value
+		});
+	}
+
     handleStreetNumChange(e) {
-    	console.log('Street num update')
 		this.setState({
 			StreetNum: e.target.value
 		});
@@ -119,6 +132,16 @@ export default class Register extends Component {
 		e.preventDefault();
 
 		let formData = this.state;
+
+		if(formData.Passwd !== formData.PasswdConfirm) {
+			return alert('Your password entries did not match');
+		}
+
+		if(formData.LicenseNumber !== formData.LicenseNumberConfirm) {
+			return alert('Your license entries did not match');
+		}
+
+		delete formData.PasswdConfirm;
 		delete formData.LicenseNumberConfirm;
 
 		let PhoneNumber = formData.PhoneNumber.split('-');
@@ -135,6 +158,7 @@ export default class Register extends Component {
 			})
 			.catch((error) => {
 				// Somehow figure out what the error was
+				alert(error);
 				console.log(error);
 			});
 	}
@@ -152,6 +176,10 @@ export default class Register extends Component {
 					<input required maxLength='1' type='text' id='register__initial' value={this.state.MiddleInit} onChange={this.handleMiddleInitChange.bind(this)}/>
 					<label htmlFor='register__last-name'>Last Name</label>
 					<input required type='text' id='register__last-name' value={this.state.LastName} onChange={this.handleLastNameChange.bind(this)}/>
+					<label htmlFor='register__password'>Password</label>
+					<input required type='password' id='register__password' value={this.state.Passwd} onChange={this.handlePasswdChange.bind(this)}/>
+					<label htmlFor='register__password-confirm'>Confirm Password</label>
+					<input required type='password' id='register__password-confirm' value={this.state.PasswdConfirm} onChange={this.handlePasswdConfirmChange.bind(this)}/>
 					<label htmlFor='register__street-number'>Street Number</label>
 					<input required type='number' id='register__street-number' min='0' value={this.state.StreetNum} onChange={this.handleStreetNumChange.bind(this)}/>
 					<label htmlFor='register__street-name'>Street Name</label>
