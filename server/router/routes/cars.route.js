@@ -9,6 +9,7 @@ router.post('/', carsCtrl.add);
 router.get('/available', carsCtrl.available);
 
 router.get('/:vin', carsCtrl.get);
+router.get('/:vin/history', carsCtrl.getHistory);
 router.put('/:vin', carsCtrl.update);
 router.delete('/:vin', carsCtrl.delete);
 

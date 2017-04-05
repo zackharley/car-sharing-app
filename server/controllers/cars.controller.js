@@ -6,11 +6,11 @@ module.exports = {
 
 	// GET `/api/cars`
 	list(req, res, next) {
-		connection.query('SELECT * FROM car', (error, result) => {
+		connection.query('SELECT * FROM car', (error, response) => {
 			if(error) {
 				next(error);
 			} else {
-				res.send(result);
+				res.send(response);
 			}
 		});
 	},
@@ -18,23 +18,11 @@ module.exports = {
 	// POST `/api/cars`
 	add(req, res, next) {
 		const addCarQuery = queryGenerator.insert('car', req.body);
-		connection.query(addCarQuery, (error, result) => {
+		connection.query(addCarQuery, (error, response) => {
 			if(error) {
 				next(error);
 			} else {
-				res.send(result);
-			}
-		});
-	},
-
-	// GET `/api/cars/:vin`
-	get(req, res, next) {
-		const vin = req.params.vin;
-		connection.query(`SELECT * FROM car WHERE VIN="${vin}"`, (error, result) => {
-			if(error) {
-				next(error);
-			} else {
-				res.send(result);
+				res.send(response);
 			}
 		});
 	},
@@ -61,6 +49,30 @@ module.exports = {
 		}
 	},
 
+	// GET `/api/cars/:vin`
+	get(req, res, next) {
+		const vin = req.params.vin;
+		connection.query(`SELECT * FROM car WHERE VIN="${vin}"`, (error, response) => {
+			if(error) {
+				next(error);
+			} else {
+				res.send(response);
+			}
+		});
+	},
+
+	// GET `/api/cars/:vin/history`
+	getHistory(req, res, next) {
+		const vin = req.params.vin;
+		connection.query(`SELECT * FROM reservation WHERE VIN="${vin}"`, (error, response) => {
+			if(error) {
+				next(error);
+			} else {
+				res.send(response);
+			}
+		});
+	},
+
 	// PUT `/api/cars/:vin`
 	update(req, res, next) {
 		const vin = req.params.vin;
@@ -71,11 +83,11 @@ module.exports = {
 
 		const updateCarQuery = queryGenerator.update('car', `VIN="${vin}"`, newCarData);
 
-		connection.query(updateCarQuery, (error, result) => {
+		connection.query(updateCarQuery, (error, response) => {
 			if(error) {
 				next(error);
 			} else {
-				res.send(result);
+				res.send(response);
 			}
 		});
 	},

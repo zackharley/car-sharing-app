@@ -10,4 +10,6 @@ router.get('/:id', memberCtrl.get);
 router.put('/:id', memberCtrl.update);
 router.delete('/:id', memberCtrl.delete);
 
+router.get('/:id/rentals', memberCtrl.listRentals);
+
 module.exports = router;

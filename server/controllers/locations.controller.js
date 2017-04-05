@@ -12,6 +12,19 @@ module.exports = {
 				res.send(result);
 			}
 		})
+	},
+
+	// GET `/api/locations/:id`
+	get(req, res, next) {
+		const locationId = req.params.id;
+		const query = `SELECT `;
+		connection.query(query, (error, response) => {
+			if(error) {
+				next(error);
+			} else {
+				res.send(response);
+			}
+		});
 	}
 
 }

@@ -45,17 +45,28 @@ module.exports = {
 
 		const updateMemberQuery = queryGenerator.update('member', `MemberID="${id}"`, newMemberData);
 
-		connection.query(updateMemberQuery, (error, result) => {
+		connection.query(updateMemberQuery, (error, response) => {
 			if(error) {
 				next(error);
 			} else {
-				res.send(result);
+				res.send(response);
 			}
 		});
 	},
 
 	delete(req, res, next) {
 
+	},
+
+	listRentals(req, res, next) {
+		const id = req.params.id;
+		connection.query(`SELECT * FROM reservation WHERE MemberID=${id}`, (error, response) => {
+			if(error) {
+				next(error);
+			} else {
+				res.send(response);
+			}
+		});
 	}
 
 }

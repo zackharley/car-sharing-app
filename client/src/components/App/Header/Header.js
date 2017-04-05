@@ -1,6 +1,7 @@
 import './Header.scss';
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import AdminDropdown from './AdminDropdown/AdminDropdown';
 
 export default class Header extends Component {
 
@@ -21,6 +22,8 @@ export default class Header extends Component {
 			    		<MenuItem id='/pickup' onClick={this.handleHeaderClick.bind(this)}>Pick Up</MenuItem>
 			    		<MenuItem id='/dropoff' onClick={this.handleHeaderClick.bind(this)}>Drop Off</MenuItem>
 			    	</NavDropdown>
+			    	{/* ONLY RENDER THE AdminDropdown COMPONENT IF THE USER IS AN ADMIN*/}
+			    	<AdminDropdown handleHeaderClick={this.handleHeaderClick.bind(this)} />
 			    </Nav>
 			</Navbar>
 		);
