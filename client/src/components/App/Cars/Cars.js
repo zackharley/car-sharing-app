@@ -19,8 +19,8 @@ export default class Cars extends Component {
 			cars: [],
 			filteredCars: [],
 			filters: {
-				pickUpDate: null,
-				dropOffDate: null
+				pickUpDate: moment(),
+				dropOffDate: moment()
 			},
 			bookModal: false,
 			bookVIN: 0,
@@ -77,8 +77,8 @@ export default class Cars extends Component {
 	}
 
 	handleApplyFilterClick(e) {
-		let pickUpDate = this.state.filters.pickUpDate;
-		let dropOffDate = this.state.filters.dropOffDate;
+		let pickUpDate = moment(this.state.filters.pickUpDate).format("YYYY-MM-DD");
+		let dropOffDate =  moment(this.state.filters.dropOffDate).format("YYYY-MM-DD");
 
 		e.preventDefault();
 
@@ -165,13 +165,13 @@ export default class Cars extends Component {
 						<p>Pickup Date</p>
 						<DatePicker
 							selected={this.state.startDate}
-							onChange={(e)=>this.setState({startDate: e})}
+							onChange={(e)=>this.setState({pickUpDate: e})}
 						 />
 
 						<p>Drop-Off Date</p>
 						<DatePicker
 							selected={this.state.endDate}
-							onChange={(e)=>this.setState({endDate: e})}
+							onChange={(e)=>this.setState({dropOffpDate: e})}
 						 />
           </Modal.Body>
           <Modal.Footer>
@@ -180,25 +180,26 @@ export default class Cars extends Component {
           </Modal.Footer>
         </Modal>
 
-				<form>
-					<label htmlFor='cars__pick-up'>Pick a pick-up date</label>
-					<input
-						id='cars__pick-up'
-						type='date'
-						onChange={this.handlePickUpDateChange.bind(this)}
-					/>
-					<label htmlFor='cars__drop-off'>Pick a drop-off date</label>
-					<input
-						id='cars__drop-off'
-						type='date'
-						onChange={this.handleDropOffDateChange.bind(this)}
-					/>
-					<input
-						type='submit'
-						onClick={this.handleApplyFilterClick.bind(this)}
-						value='Apply Filter'
-					/>
-				</form>
+				<Col mdOffset={2} md={8}>
+					<form>
+						<label htmlFor='cars__pick-up'>Pickup Date</label>
+						<DatePicker
+							selected={this.state.startDate}
+							onChange={(e)=>this.setState({startDate: e})}
+						 />
+
+						<label htmlFor='cars__pick-up'>Drop-Off Date</label>
+						<DatePicker
+							selected={this.state.endDate}
+							onChange={(e)=>this.setState({endDate: e})}
+						 />
+
+						 <Button onClick={this.handleApplyFilterClick.bind(this)}>Apply Filter</Button>
+					</form>
+
+
+				</Col>
+
 				<Col mdOffset={2} md={8}>
 					<Panel>
 						<h1>Cars</h1>

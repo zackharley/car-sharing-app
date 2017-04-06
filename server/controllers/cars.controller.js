@@ -50,22 +50,13 @@ module.exports = {
 	available(req, res, next) {
 		const pickUpDate = req.query.pickup;
 		const dropOffDate = req.query.dropoff;
-
-		if(dateService.isValidDate(pickUpDate) && dateService.isValidDate(dropOffDate)) {
-			const getAvailableCarsQuery = queryGenerator.carsAvailableOverRange(pickUpDate, dropOffDate);
-			connection.query(getAvailableCarsQuery, (error, response) => {
+			connection.query(`SELECT VIN FROM cars_and_reservations WHERE (DropOffDate >= "${pickUpDate}" && DropOffDate <= "${dropOffDate}") || (pickUpDate >= "${pickUpDate}" && pickUpDate <= "${dropOffDate}") || (pickUpDate <= "${pickUpDate}" && DropOffDate >= "${dropOffDate}")`, (error, response) => {
 				if(error) {
 					next(error);
 				} else {
 					res.send(response);
 				}
 			});
-		} else {
-			next({
-				message: 'You must supply a pick date and a drop off date, both in the format "YYYY-MM-DD"',
-				status: 400
-			});
-		}
 	},
 
 	// GET `/api/cars/damaged-or-not-running`
@@ -107,7 +98,7 @@ module.exports = {
 	update(req, res, next) {
 		const vin = req.params.vin;
 		let newCarData = req.body;
-		
+
 		if(newCarData.VIN) {
 			delete newCarData.VIN;
 		}
