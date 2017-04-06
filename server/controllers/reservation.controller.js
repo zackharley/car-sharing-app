@@ -25,6 +25,16 @@ module.exports = {
 		});
 	},
 
+  getAll(req, res, next) {
+    connection.query(`SELECT reservation.ReservationID, reservation.MemberID, reservation.VIN, reservation.AccessCode, reservation.PickupDate, reservation.DropOffDate, car.Make, car.Model, car.Year from reservation JOIN car ON reservation.VIN = car.VIN;`, (error, response) => {
+      if(error) {
+        next(error);
+      } else {
+        res.send(response);
+      }
+    });
+  },
+
   update(req, res, next) {
     const id = req.params.id;
     let newData = req.body;

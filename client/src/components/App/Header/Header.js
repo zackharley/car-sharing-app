@@ -11,7 +11,7 @@ export default class Header extends Component {
 
 		this.state = {
 			isAdmin: false,
-      		loggedIn: false
+  		loggedIn: false
 		};
 	}
 
@@ -59,7 +59,7 @@ export default class Header extends Component {
 			    		<MenuItem id='/pickup' onClick={this.handleHeaderClick.bind(this)}>Pick Up</MenuItem>
 			    		<MenuItem id='/dropoff' onClick={this.handleHeaderClick.bind(this)}>Drop Off</MenuItem>
 			    	</NavDropdown>
-			    	{ myRentals }
+			    	<NavItem onClick={this.handleMyRentalsClick.bind(this)}>{(this.state.isAdmin) ? 'All Rentals' : 'My Rentals'}</NavItem>
 			    	{ adminDropdown }
 					{ logOutButton }
 			    </Nav>
