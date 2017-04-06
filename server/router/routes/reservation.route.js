@@ -8,5 +8,6 @@ router.post('/', reservationControl.add);
 router.get('/adminAll', reservationControl.getAll);
 router.get('/:id', reservationControl.get);
 router.put('/:id', reservationControl.update);
+router.get('/date/:date', reservationControl.specificDate);
 
 module.exports = router;

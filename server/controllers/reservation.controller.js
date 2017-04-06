@@ -69,5 +69,16 @@ module.exports = {
         res.send(response);
       }
     });
-  }
+  },
+
+	specificDate(req, res, next) {
+		const date = req.params.date;
+		connection.query(`SELECT reservation.ReservationID, reservation.MemberID, reservation.VIN, reservation.AccessCode, reservation.PickupDate, reservation.DropOffDate, car.Make, car.Model, car.Year from reservation JOIN car ON reservation.VIN = car.VIN WHERE reservation.PickupDate LIKE '${date}'`, (error, response) => {
+			if(error) {
+				next(error);
+			} else {
+				res.send(response);
+			}
+		});
+	},
 }
