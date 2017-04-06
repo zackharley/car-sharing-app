@@ -16,9 +16,9 @@ module.exports = {
 		let query;
 
 		if(filters.needService && filters.damagedOrNotRunning) {
-			query = 'SELECT cars_and_count.* FROM cars_and_count JOIN maintenancehist ON cars_and_count.VIN=maintenancehist.VIN WHERE (maintenancehist.Odometer - cars_and_count.Odometer) > 5000 && (CarStatus="damaged" || CarStatus="not running")';
+			query = 'SELECT cars_and_count.* FROM cars_and_count JOIN maintenancehist ON cars_and_count.VIN=maintenancehist.VIN WHERE (maintenancehist.Odometer - cars_and_count.Odometer) > 5000 && (CarStatus="damaged" || CarStatus="not running") GROUP BY cars_and_count.VIN';
 		} else if(filters.needService) {
-			query = 'SELECT cars_and_count.* FROM cars_and_count JOIN maintenancehist ON cars_and_count.VIN=maintenancehist.VIN WHERE (maintenancehist.Odometer - cars_and_count.Odometer) > 5000';
+			query = 'SELECT cars_and_count.* FROM cars_and_count JOIN maintenancehist ON cars_and_count.VIN=maintenancehist.VIN WHERE (maintenancehist.Odometer - cars_and_count.Odometer) > 5000 GROUP BY cars_and_count.VIN';
 		} else if(filters.damagedOrNotRunning) {
 			query = 'SELECT * FROM cars_and_count WHERE CarStatus="damaged" || CarStatus="not running"';
 		} else {
@@ -36,8 +36,9 @@ module.exports = {
 
 	// POST `/api/cars`
 	add(req, res, next) {
-		const addCarQuery = queryGenerator.insert('car', req.body);
-		connection.query(addCarQuery, (error, response) => {
+		const query = queryGenerator.insert('car', req.body);
+		console.log(query);
+		connection.query(query, (error, response) => {
 			if(error) {
 				next(error);
 			} else {

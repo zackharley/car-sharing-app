@@ -16,6 +16,7 @@ module.exports = {
 
 	post(req, res, next) {
 		const addQuery = queryGenerator.insert('rentalcomments', req.body);
+		console.log(addQuery);
 		connection.query(addQuery, (error, response) => {
 			if(error) {
 				next(error);
