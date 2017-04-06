@@ -1,7 +1,6 @@
 import './Register.scss';
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Router } from 'react-router';
 
 export default class Register extends Component {
 

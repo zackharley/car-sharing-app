@@ -14,17 +14,17 @@ export default class Login extends Component {
 			mode: 'login',
 			FirstName: '',
 			MiddleInit: '',
-	    LastName: '',
-	    Passwd: '',
-	    StreetNum: '',
-	    StreetName: '',
-	    City: '',
-	    Province: '',
-	    PostalCode: '',
-	    AreaCode: '',
-	    PhoneNumber: '',
-	    Email: '',
-	    LicenseNumber: ''
+		    LastName: '',
+		    Passwd: '',
+		    StreetNum: '',
+		    StreetName: '',
+		    City: '',
+		    Province: '',
+		    PostalCode: '',
+		    AreaCode: '',
+		    PhoneNumber: '',
+		    Email: '',
+		    LicenseNumber: ''
 		}
 	}
 

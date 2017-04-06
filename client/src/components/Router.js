@@ -18,7 +18,8 @@ import DropOff from './App/DropOff/DropOff';
 import Rentals from './App/Rentals/Rentals';
 
 /* Admin Components */
-import Invoice from './App/Invoice/Invoice';
+import Invoices from './App/Invoices/Invoices';
+import Invoice from './App/Invoices/Invoice/Invoice';
 import AddCar from './App/Cars/AddCar/AddCar';
 import CarHistory from './App/Cars/Car/CarHistory/CarHistory';
 import Location from './App/Locations/Location/Location';
@@ -55,7 +56,8 @@ export default class Router extends React.Component {
 						<Route path='/locations/:id' component={Location} />
 						<Route path='/pickup' component={PickUp} />
 						<Route path='/dropoff' component={DropOff} />
-						<Route path='/invoice' component={Invoice} />
+						<Route exact path='/invoice' component={Invoices} />
+						<Route path='/invoice/:memberId' component={Invoice} />
 						<Route exact path='/member/rentals' component={Rentals} />{/*/member is for the current user*/}
 					</Switch>
 				</section>
