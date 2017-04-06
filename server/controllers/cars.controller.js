@@ -107,6 +107,7 @@ module.exports = {
 	update(req, res, next) {
 		const vin = req.params.vin;
 		let newCarData = req.body;
+		
 		if(newCarData.VIN) {
 			delete newCarData.VIN;
 		}

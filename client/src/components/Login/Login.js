@@ -118,47 +118,47 @@ export default class Login extends Component {
 
 		if(this.state.mode === 'login') {
 			viewData =
-				<Form horizontal>
-			    <FormGroup controlId='formHorizontalEmail'>
-			      	<Col componentClass={ControlLabel} sm={2}>
-			        	Email
-			      	</Col>
-			      	<Col sm={8}>
-			        	<FormControl
-			        		type='email'
-			        		placeholder='Email'
-			        		value={this.state.loginEmail}
-			        		onChange={this.handleLoginEmailChange.bind(this)}
-			        	/>
-			      	</Col>
-		    	</FormGroup>
-			    <FormGroup controlId='formHorizontalPassword'>
-			      	<Col componentClass={ControlLabel} sm={2}>
-			        	Password
-			      	</Col>
-			      	<Col sm={8}>
-			        	<FormControl
-			        		type='password'
-			        		placeholder='Password'
-			        		value={this.state.loginPassword}
-			        		onChange={this.handleLoginPasswordChange.bind(this)}
-			        	/>
-			      	</Col>
-			    </FormGroup>
-			    <FormGroup>
-			      	<Col smOffset={2} sm={1}>
-			        	<Button type='submit' bsStyle='primary' onClick={this.handleSubmitLogin.bind(this)}>
-			          		Sign in
-			        	</Button>
-			      	</Col>
+					<Form horizontal>
+				    <FormGroup controlId='formHorizontalEmail'>
+				      	<Col componentClass={ControlLabel} sm={2}>
+				        	Email
+				      	</Col>
+				      	<Col sm={8}>
+				        	<FormControl
+				        		type='email'
+				        		placeholder='Email'
+				        		value={this.state.loginEmail}
+				        		onChange={this.handleLoginEmailChange.bind(this)}
+				        	/>
+				      	</Col>
+			    	</FormGroup>
+				    <FormGroup controlId='formHorizontalPassword'>
+				      	<Col componentClass={ControlLabel} sm={2}>
+				        	Password
+				      	</Col>
+				      	<Col sm={8}>
+				        	<FormControl
+				        		type='password'
+				        		placeholder='Password'
+				        		value={this.state.loginPassword}
+				        		onChange={this.handleLoginPasswordChange.bind(this)}
+				        	/>
+				      	</Col>
+				    </FormGroup>
+				    <FormGroup>
+				      	<Col smOffset={2} sm={1}>
+				        	<Button type='submit' bsStyle='primary' onClick={this.handleSubmitLogin.bind(this)}>
+				          		Sign in
+				        	</Button>
+				      	</Col>
 
-							<Col sm={2}>
-			        	<Button bsStyle='success' onClick={() => this.setState({mode: 'register'})}>
-			          		New User
-			        	</Button>
-			      	</Col>
-			    </FormGroup>
-			  </Form>;
+								<Col sm={2}>
+				        	<Button bsStyle='success' onClick={() => this.setState({mode: 'register'})}>
+				          		New User
+				        	</Button>
+				      	</Col>
+				    </FormGroup>
+				  </Form>;
 		} else if (this.state.mode === 'register') {
 			viewData =
 					<Form horizontal>
