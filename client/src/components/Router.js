@@ -10,7 +10,7 @@ import Success from './Register/Success/Success';
 import Header from './App/Header/Header';
 
 /* Registered User Components */
-import Cars from './App/Cars/Cars';
+import CarsWrapper from './App/Cars/CarsWrapper';
 import Car from './App/Cars/Car/Car';
 import Locations from './App/Locations/Locations';
 import PickUp from './App/PickUp/PickUp';
@@ -47,7 +47,7 @@ export default class Router extends React.Component {
 						{/* <Route exact path='/register' component={Register} /> */}
 						{/* <Route exact path='/register/success' component={Success} /> */}
 						<Route exact path='/login' component={Login} />
-						<Route exact path='/cars' component={Cars} />
+						<Route exact path='/cars' component={CarsWrapper} />
 						<Route exact path='/cars/add' component={AddCar} />
 						<Route exact path='/cars/:vin' component={Car} />
 						<Route exact path='/cars/:vin/history' component={CarHistory} />

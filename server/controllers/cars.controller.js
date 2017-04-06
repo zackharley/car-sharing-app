@@ -6,7 +6,26 @@ module.exports = {
 
 	// GET `/api/cars`
 	list(req, res, next) {
-		connection.query('SELECT * FROM car', (error, response) => {
+		let filters = {};
+		if(req.query.filters) {
+			req.query.filters.split(',').forEach((filter) => {
+				filters[filter] = true;
+			});
+		}
+
+		let query;
+
+		if(filters.needService && filters.damagedOrNotRunning) {
+			query = 'SELECT cars_and_count.* FROM cars_and_count JOIN maintenancehist ON cars_and_count.VIN=maintenancehist.VIN WHERE (cars_and_count.Odometer - maintenancehist.Odometer) > 5000 && (CarStatus="damaged" || CarStatus="not running")';
+		} else if(filters.needService) {
+			query = 'SELECT cars_and_count.* FROM cars_and_count JOIN maintenancehist ON cars_and_count.VIN=maintenancehist.VIN WHERE (cars_and_count.Odometer - maintenancehist.Odometer) > 5000';
+		} else if(filters.damagedOrNotRunning) {
+			query = 'SELECT * FROM cars_and_count WHERE CarStatus="damaged" || CarStatus="not running"';
+		} else {
+			query = 'SELECT * FROM cars_and_count';
+		}
+
+		connection.query(query, (error, response) => {
 			if(error) {
 				next(error);
 			} else {
@@ -47,6 +66,17 @@ module.exports = {
 				status: 400
 			});
 		}
+	},
+
+	// GET `/api/cars/damaged-or-not-running`
+	damageOrNotRunning(req, res, next) {
+		connection.query(`SELECT * FROM car WHERE CarStatus="damaged" || CarStatus="not running"`, (error, response) => {
+			if(error) {
+				next(error);
+			} else {
+				res.send(response);
+			}
+		});
 	},
 
 	// GET `/api/cars/:vin`
