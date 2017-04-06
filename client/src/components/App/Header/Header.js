@@ -25,7 +25,7 @@ export default class Header extends Component {
 	}
 
 	handleMyRentalsClick(e) {
-		this.props.history.push('/member/rentals');
+		this.props.history.push('/member/reservations');
 	}
 
 	logout() {

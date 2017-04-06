@@ -2,7 +2,7 @@ import './Cars.scss';
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Grid, Row, Col, Table, Button, Modal } from 'react-bootstrap';
+import { Col, Panel, Table, Button, Modal } from 'react-bootstrap';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -199,41 +199,42 @@ export default class Cars extends Component {
 						value='Apply Filter'
 					/>
 				</form>
-				<Grid>
-					<Row>
-						<Col>
-							<Table bordered>
-								<thead>
-									<tr>
-										<th>Make</th>
-										<th>Model</th>
-										<th>Year</th>
-										<th>Mileage</th>
-										<th>Price per Day</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									{this.state.filteredCars.map((car) => {
-										return (
-											<tr
-												id={car.VIN}
-												key={car.VIN}
-											>
-												<td onClick={this.handleTableRowClick.bind(this)}>{car.Make}</td>
-												<td onClick={this.handleTableRowClick.bind(this)}>{car.Model}</td>
-												<td onClick={this.handleTableRowClick.bind(this)}>{car.Year}</td>
-												<td onClick={this.handleTableRowClick.bind(this)}>{car.Odometer}</td>
-												<td onClick={this.handleTableRowClick.bind(this)}>{car.DailyFee}</td>
-												<td><Button bsStyle="primary" id={car.VIN} onClick={(e)=>this.bookCar(e)}>Book</Button></td>
-											</tr>
-										);
-									})}
-								</tbody>
-							</Table>
-						</Col>
-					</Row>
-				</Grid>
+				<Col mdOffset={2} md={8}>
+					<Panel>
+						<h1>Cars</h1>
+						<h4>Here is a list of cars.</h4>
+
+						<Table striped bordered condensed hover>
+							<thead>
+								<tr>
+									<th>Make</th>
+									<th>Model</th>
+									<th>Year</th>
+									<th>Mileage</th>
+									<th>Price per Day</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								{this.state.filteredCars.map((car) => {
+									return (
+										<tr
+											id={car.VIN}
+											key={car.VIN}
+										>
+											<td onClick={this.handleTableRowClick.bind(this)}>{car.Make}</td>
+											<td onClick={this.handleTableRowClick.bind(this)}>{car.Model}</td>
+											<td onClick={this.handleTableRowClick.bind(this)}>{car.Year}</td>
+											<td onClick={this.handleTableRowClick.bind(this)}>{car.Odometer}</td>
+											<td onClick={this.handleTableRowClick.bind(this)}>{car.DailyFee}</td>
+											<td><Button bsStyle="primary" id={car.VIN} onClick={(e)=>this.bookCar(e)}>Book</Button></td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</Table>
+					</Panel>
+				</Col>
 			</section>
 		);
 	}

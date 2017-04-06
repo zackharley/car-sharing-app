@@ -2,7 +2,7 @@ import './Cars.scss';
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; 
-import { Grid, Row, Col, Table } from 'react-bootstrap';
+import { Col, Panel, Table } from 'react-bootstrap';
 
 export default class AdminCars extends Component {
 
@@ -150,42 +150,43 @@ export default class AdminCars extends Component {
 						value='Apply Filter'
 					/>
 				</form>
-				<Grid>
-					<Row>
-						<Col>
-							<Table bordered>
-								<thead>
-									<tr>
-										<th>Make</th>
-										<th>Model</th>
-										<th>Year</th>
-										<th>Mileage</th>
-										<th>Price per Day</th>
-										<th>Total Rentals</th>
-									</tr>
-								</thead>
-								<tbody>
-									{this.state.cars.map((car) => {
-										return (
-											<tr
-												id={car.VIN}
-												key={car.VIN}
-												onClick={this.handleTableRowClick.bind(this)}
-											>
-												<td>{car.Make}</td>
-												<td>{car.Model}</td>
-												<td>{car.Year}</td>
-												<td>{car.Odometer}</td>
-												<td>{car.DailyFee}</td>
-												<td>{car.TotalRentals}</td>
-											</tr>
-										);
-									})}
-								</tbody>
-							</Table>
-						</Col>
-					</Row>
-				</Grid>
+				<Col mdOffset={2} md={8}>
+					<Panel>
+						<h1>Cars</h1>
+						<h4>Here is a list of cars.</h4>
+
+						<Table striped bordered condensed hover>
+							<thead>
+								<tr>
+									<th>Make</th>
+									<th>Model</th>
+									<th>Year</th>
+									<th>Mileage</th>
+									<th>Price per Day</th>
+									<th>Total Rentals</th>
+								</tr>
+							</thead>
+							<tbody>
+								{this.state.cars.map((car) => {
+									return (
+										<tr
+											id={car.VIN}
+											key={car.VIN}
+											onClick={this.handleTableRowClick.bind(this)}
+										>
+											<td>{car.Make}</td>
+											<td>{car.Model}</td>
+											<td>{car.Year}</td>
+											<td>{car.Odometer}</td>
+											<td>{car.DailyFee}</td>
+											<td>{car.TotalRentals}</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</Table>
+					</Panel>
+				</Col>
 			</section>
 		);
 	}

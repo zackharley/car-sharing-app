@@ -1,7 +1,28 @@
 const connection = require('../db');
 const queryGenerator = require('../services/query-generator');
+const moment = require('moment');
 
 module.exports = {
+
+	list(req, res, next) {
+		let date = req.query.date;
+  		if(date) {
+  			query = `SELECT * FROM reservation WHERE DATEDIFF("${date}", PickupDate) >= 0 && DATEDIFF(DropOffDate, "${date}") >= 0`;
+  		} else {
+			query = `SELECT * FROM reservation`;
+  		}
+
+		console.log(query);
+
+		connection.query(query, (error, response) => {
+			if(error) {
+				next(error);
+			} else {
+				res.send(response);
+			}
+		});
+	},
+
   add(req, res, next) {
 		const addReserve = queryGenerator.insert('reservation', req.body);
 		console.log(addReserve);
