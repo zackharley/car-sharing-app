@@ -10,6 +10,8 @@ router.get('/:id', memberCtrl.get);
 router.put('/:id', memberCtrl.update);
 router.delete('/:id', memberCtrl.delete);
 
+router.get('/login/:email', memberCtrl.getLoginDetails)
+
 router.get('/:id/rentals', memberCtrl.listRentals);
 
 module.exports = router;

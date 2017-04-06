@@ -2,7 +2,6 @@ const connection = require('../db');
 const queryGenerator = require('../services/query-generator');
 
 module.exports = {
-
 	list(req, res, next) {
 		connection.query('SELECT * FROM member', (error, response) => {
 			if(error) {
@@ -61,6 +60,17 @@ module.exports = {
 	listRentals(req, res, next) {
 		const id = req.params.id;
 		connection.query(`SELECT * FROM reservation JOIN car ON reservation.VIN=car.VIN WHERE MemberID=${id}`, (error, response) => {
+			if(error) {
+				next(error);
+			} else {
+				res.send(response);
+			}
+		});
+	},
+
+	getLoginDetails(req, res, next) {
+		const email = req.params.email;
+		connection.query(`SELECT Passwd FROM member WHERE Email="${email}"`, (error, response) => {
 			if(error) {
 				next(error);
 			} else {

@@ -26,14 +26,18 @@ export default class Login extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
+
 		let _this = this;
-		axios.post('/auth', this.state)
+		axios.get(`/api/members/login/${this.state.email}/`)
 			.then((response) => {
-				console.log(response);
+				console.log(response.data[0]);
+				// _this.setState({
+				// 	rentals: response.data
+				// });
 			})
 			.catch((error) => {
 				console.error(error);
-			});
+			})
 	}
 
 	render() {
