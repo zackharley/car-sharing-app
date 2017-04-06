@@ -23,7 +23,11 @@ import Invoice from './App/Invoices/Invoice/Invoice';
 import AddCar from './App/Cars/AddCar/AddCar';
 import CarHistory from './App/Cars/Car/CarHistory/CarHistory';
 import Location from './App/Locations/Location/Location';
+<<<<<<< HEAD
 import DailyReservations from './App/DailyReservations/DailyReservations';
+=======
+import Feedback from './App/Feedback/Feedback'
+>>>>>>> 599b4c2ed2df6292dc92628376183d7c599ae491
 
 import auth from '../util/auth.js';
 
@@ -61,6 +65,7 @@ export default class Router extends React.Component {
 						<Route path='/invoice/:memberId' component={Invoice} />
 						<Route exact path='/member/reservations' component={Rentals} />{/*/member is for the current user*/}
 						<Route exact path='/reservations/:date' component={DailyReservations} />
+						<Route exact path='/member/:memberID/rentals/:rentalID' component={Feedback} />{/*/member is for the current user*/}
 					</Switch>
 				</section>
 			</BrowserRouter>
