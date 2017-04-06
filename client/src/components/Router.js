@@ -44,8 +44,8 @@ export default class Router extends React.Component {
 					{ redirect }
 					<Switch>
 						<Route exact path='/' component={Home} />
-						<Route exact path='/register' component={Register} />
-						<Route exact path='/register/success' component={Success} />
+						{/* <Route exact path='/register' component={Register} /> */}
+						{/* <Route exact path='/register/success' component={Success} /> */}
 						<Route exact path='/login' component={Login} />
 						<Route exact path='/cars' component={CarsWrapper} />
 						<Route exact path='/cars/add' component={AddCar} />
