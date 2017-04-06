@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import axios from'axios';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
-
-const tempMember = {
-	id: 1
-};
+import auth from '../../../util/auth';
 
 export default class Rentals extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			rentals: []
+			rentals: [],
+			currentUser: auth.getCurrentUser()
 		};
 	}
 
 	componentDidMount() {
 		let _this = this;
-		axios.get(`/api/members/${tempMember.id}/rentals`)
+		axios.get(`/api/members/${this.state.currentUser}/rentals`)
 			.then((response) => {
 				_this.setState({
 					rentals: response.data
