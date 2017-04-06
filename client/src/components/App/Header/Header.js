@@ -11,7 +11,7 @@ export default class Header extends Component {
 
 		this.state = {
 			isAdmin: false,
-      loggedIn: false
+      		loggedIn: false
 		};
 	}
 
