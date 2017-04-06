@@ -27,6 +27,7 @@ import Location from './App/Locations/Location/Location';
 import auth from '../util/auth.js';
 
 export default class Router extends React.Component {
+
 	render() {
 		var redirect = <Redirect to="/login"/>
 
