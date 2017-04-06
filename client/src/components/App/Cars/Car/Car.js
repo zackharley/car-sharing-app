@@ -23,7 +23,7 @@ export default class Car extends Component {
 			})
 			.catch((error) => {
 				console.error(error);
-			})
+			});
 	}
 
 	handleReserveCar(e) {
