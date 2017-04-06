@@ -7,6 +7,7 @@ router.get('/', carsCtrl.list);
 router.post('/', carsCtrl.add);
 
 router.get('/available', carsCtrl.available);
+router.get('/damaged-or-not-running', carsCtrl.available);
 
 router.get('/:vin', carsCtrl.get);
 router.get('/:vin/history', carsCtrl.getHistory);

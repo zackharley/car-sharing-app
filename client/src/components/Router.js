@@ -10,7 +10,8 @@ import Success from './Register/Success/Success';
 import Header from './App/Header/Header';
 
 /* Registered User Components */
-import Cars from './App/Cars/Cars';
+// import Cars from './App/Cars/Cars';
+import Cars from './App/Cars/AdminCars';
 import Car from './App/Cars/Car/Car';
 import Locations from './App/Locations/Locations';
 import PickUp from './App/PickUp/PickUp';
