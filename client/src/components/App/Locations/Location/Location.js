@@ -27,8 +27,6 @@ export default class Location extends Component {
 		let locations = this.state.locations;
 		let tableData = [];
 
-		console.log(locations);
-
 		for(var location in locations) {
 
 			tableData.push(
@@ -48,7 +46,7 @@ export default class Location extends Component {
 			<Col mdOffset={2} md={8}>
 				<Panel>
 					<h1>Location {this.props.match.params.id}</h1>
-					<h4>Find all the locations for KTCS below.</h4>
+					<h4>Below you find all the cars available at this location.</h4>
 
 					<Table striped bordered condensed hover>
 						<thead>

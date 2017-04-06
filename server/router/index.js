@@ -6,6 +6,7 @@ const invoice = require('./routes/invoice.route');
 const reservation = require('./routes/reservation.route');
 const pickup = require('./routes/pickup.route');
 const dropoff = require('./routes/dropoff.route');
+const rentalcomment = require('./routes/rentalcomment.route');
 
 /* All routes are preceeded with `/api` */
 
@@ -16,5 +17,6 @@ router.use('/reservation', reservation);
 router.use('/invoice', invoice);
 router.use('/pickup', pickup)
 router.use('/dropoff', dropoff)
+router.use('/rentalcomment', rentalcomment)
 
 module.exports = router;

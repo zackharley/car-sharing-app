@@ -26,6 +26,10 @@ export default class Rentals extends Component {
 			})
 	}
 
+	checkRental(e) {
+		this.props.history.push(`/member/${this.state.currentUser}/rentals/${Number(e.target.id)}`);
+	}
+
 	render() {
 		return (
 			<Col mdOffset={2} md={8}>
@@ -50,14 +54,14 @@ export default class Rentals extends Component {
 								const pickUpDate = new Date(rental.PickupDate);
 								const dropOffDate = new Date(rental.DropOffDate);
 								return (
-									<tr key={rental.ReservationID}>
-										<td>{rental.ReservationID}</td>
-										<td>{rental.AccessCode}</td>
-										<td>{rental.Make}</td>
-										<td>{rental.Model}</td>
-										<td>{rental.Year}</td>
-										<td>{pickUpDate.toLocaleDateString()}</td>
-										<td>{dropOffDate.toLocaleDateString()}</td>
+									<tr onClick={(e)=>this.checkRental(e)} key={rental.ReservationID}>
+										<td id={rental.ReservationID}>{rental.ReservationID}</td>
+										<td id={rental.ReservationID}>{rental.AccessCode}</td>
+										<td id={rental.ReservationID}>{rental.Make}</td>
+										<td id={rental.ReservationID}>{rental.Model}</td>
+										<td id={rental.ReservationID}>{rental.Year}</td>
+										<td id={rental.ReservationID}>{pickUpDate.toLocaleDateString()}</td>
+										<td id={rental.ReservationID}>{dropOffDate.toLocaleDateString()}</td>
 									</tr>
 								);
 							})}
