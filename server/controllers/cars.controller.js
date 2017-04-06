@@ -16,9 +16,9 @@ module.exports = {
 		let query;
 
 		if(filters.needService && filters.damagedOrNotRunning) {
-			query = 'SELECT cars_and_count.* FROM cars_and_count JOIN maintenancehist ON cars_and_count.VIN=maintenancehist.VIN WHERE (cars_and_count.Odometer - maintenancehist.Odometer) > 5000 && (CarStatus="damaged" || CarStatus="not running")';
+			query = 'SELECT cars_and_count.* FROM cars_and_count JOIN maintenancehist ON cars_and_count.VIN=maintenancehist.VIN WHERE (maintenancehist.Odometer - cars_and_count.Odometer) > 5000 && (CarStatus="damaged" || CarStatus="not running")';
 		} else if(filters.needService) {
-			query = 'SELECT cars_and_count.* FROM cars_and_count JOIN maintenancehist ON cars_and_count.VIN=maintenancehist.VIN WHERE (cars_and_count.Odometer - maintenancehist.Odometer) > 5000';
+			query = 'SELECT cars_and_count.* FROM cars_and_count JOIN maintenancehist ON cars_and_count.VIN=maintenancehist.VIN WHERE (maintenancehist.Odometer - cars_and_count.Odometer) > 5000';
 		} else if(filters.damagedOrNotRunning) {
 			query = 'SELECT * FROM cars_and_count WHERE CarStatus="damaged" || CarStatus="not running"';
 		} else {
