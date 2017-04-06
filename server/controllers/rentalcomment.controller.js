@@ -24,4 +24,23 @@ module.exports = {
 			}
 		});
 	},
+
+	update(req, res, next) {
+		const id = req.params.rentalID;
+		let data = req.body;
+
+		if(data.ReservationID) {
+			delete data.ReservationID;
+		}
+
+		const updateQuery = queryGenerator.update('rentalcomments', `ReservationID="${id}"`, data);
+
+		connection.query(updateQuery, (error, response) => {
+			if(error) {
+				next(error);
+			} else {
+				res.send(response);
+			}
+		});
+	},
 }

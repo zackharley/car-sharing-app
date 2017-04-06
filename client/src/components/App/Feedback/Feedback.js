@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Panel, Table, Col, Button, Form, FormGroup, Radio, ControlLabel, FormControl } from 'react-bootstrap';
 import moment from 'moment';
+import auth from '../../../util/auth';
 
 export default class Feedback extends Component {
 
@@ -17,7 +18,8 @@ export default class Feedback extends Component {
       },
       mode: 'write',
       rating: 3,
-      comment: ''
+      comment: '',
+			AdminComment: ''
 		};
 	}
 
@@ -45,7 +47,7 @@ export default class Feedback extends Component {
       Rating: this.state.rating,
       ReservationID: this.props.match.params.rentalID,
       MemberID: this.props.match.params.memberID,
-      AdminComment: ''
+      AdminComment: this.state.AdminComment
     }
 
     this.setState({
@@ -62,6 +64,24 @@ export default class Feedback extends Component {
 				console.log(error);
 			});
   }
+
+	pushComment() {
+		let _this = this;
+
+		let data = {
+			AdminComment: this.state.AdminComment
+		};
+
+		axios.put(`/api/rentalcomment/${this.props.match.params.rentalID}/`, data)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				// Somehow figure out what the error was
+				alert(error);
+				console.log(error);
+			});
+	}
 
 	render() {
 		// let locations = this.state.locations;
@@ -117,6 +137,21 @@ export default class Feedback extends Component {
           </FormGroup>
         </Form>;
     } else if(this.state.mode === 'read') {
+			let adminRespond = <p>{(this.state.data.AdminComment) ? this.state.data.AdminComment : 'No response.. yet!'}</p>;
+			let adminButton = null;
+
+			if(auth.isAdmin() === 1) {
+				adminRespond =
+					<Col sm={8}>
+						<FormControl onChange={(e)=>this.setState({AdminComment: e.target.value})} componentClass="textarea" placeholder="Respond here." />
+					</Col>;
+
+				adminButton =
+					<Button bsStyle='primary' onClick={()=>this.pushComment()}>
+						 Submit
+					</Button>;
+			}
+
       view =
         <Form horizontal>
           <FormGroup controlId="formControlsTextarea">
@@ -147,10 +182,12 @@ export default class Feedback extends Component {
               </Col>
               <Col sm={8}>
                 <FormGroup>
-                   <p>{(this.state.data.AdminComment) ? this.state.data.AdminComment : 'No response.. yet!'}</p>
+									{adminRespond}
                 </FormGroup>
               </Col>
           </FormGroup>
+
+					{adminButton}
         </Form>;
     }
 

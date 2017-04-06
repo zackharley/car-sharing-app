@@ -15,15 +15,29 @@ export default class Rentals extends Component {
 
 	componentDidMount() {
 		let _this = this;
-		axios.get(`/api/members/${this.state.currentUser}/rentals`)
-			.then((response) => {
-				_this.setState({
-					rentals: response.data
-				});
-			})
-			.catch((error) => {
-				console.error(error);
-			})
+
+		if(auth.isAdmin() === 1) {
+			axios.get(`/api/reservation/adminAll`)
+				.then((response) => {
+					console.log(response.data);
+					_this.setState({
+						rentals: response.data
+					});
+				})
+				.catch((error) => {
+					console.error(error);
+				})
+		} else {
+			axios.get(`/api/members/${this.state.currentUser}/rentals`)
+				.then((response) => {
+					_this.setState({
+						rentals: response.data
+					});
+				})
+				.catch((error) => {
+					console.error(error);
+				})
+		}
 	}
 
 	checkRental(e) {
