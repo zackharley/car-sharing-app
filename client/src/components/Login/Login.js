@@ -47,7 +47,6 @@ export default class Login extends Component {
 			let _this = this;
 			axios.get(`/api/members/login/${this.state.loginEmail}/`)
 				.then((response) => {
-					console.log(response.data);
 					if(response.data !== [] && response.data !== undefined) {
 						if(response.data[0].Passwd === this.state.loginPassword) {
 							auth.login(response.data[0].MemberID, response.data[0].isAdmin);
