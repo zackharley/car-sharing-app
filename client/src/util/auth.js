@@ -26,5 +26,9 @@ module.exports = {
 
   isLoggedIn() {
     return loggedIn;
+  },
+
+  getCurrentUser() {
+    return currentUser;
   }
 }
