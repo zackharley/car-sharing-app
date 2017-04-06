@@ -60,7 +60,7 @@ module.exports = {
 
 	listRentals(req, res, next) {
 		const id = req.params.id;
-		connection.query(`SELECT * FROM reservation WHERE MemberID=${id}`, (error, response) => {
+		connection.query(`SELECT * FROM reservation JOIN car ON reservation.VIN=car.VIN WHERE MemberID=${id}`, (error, response) => {
 			if(error) {
 				next(error);
 			} else {

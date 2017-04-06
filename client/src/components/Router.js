@@ -42,8 +42,8 @@ export default class Router extends Component {
 						<Route path='/locations/:id' component={Location} />
 						<Route path='/pickup' component={PickUp} />
 						<Route path='/dropoff' component={DropOff} />
-						<Route path='/rentals' component={Rentals} />
 						<Route path='/invoice' component={Invoice} />
+						<Route exact path='/member/rentals' component={Rentals} />{/*/member is for the current user*/}
 					</Switch>
 				</section>
 			</BrowserRouter>
