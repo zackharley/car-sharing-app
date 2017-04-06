@@ -1,8 +1,15 @@
 import './Cars.scss';
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; 
-import { Grid, Row, Col, Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Grid, Row, Col, Table, Button, Modal } from 'react-bootstrap';
+
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import auth from '../../../util/auth.js';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default class Cars extends Component {
 
@@ -14,7 +21,11 @@ export default class Cars extends Component {
 			filters: {
 				pickUpDate: null,
 				dropOffDate: null
-			}
+			},
+			bookModal: false,
+			bookVIN: 0,
+			startDate: moment(),
+			endDate: moment()
 		};
 	}
 
@@ -106,9 +117,69 @@ export default class Cars extends Component {
 		this.props.history.push(`/cars/${vin}`);
 	}
 
+	bookCar(e) {
+	 	this.setState({
+			showModal: true,
+			bookVIN: e.target.id
+		 });
+	}
+
+	bookSend() {
+		this.setState({
+			showModal: false
+		 });
+
+ 		let formData = {
+			MemberID: auth.getCurrentUser(),
+			VIN: this.state.bookVIN,
+			AccessCode: Math.floor(Math.random() * 9999),
+			Completed: 0,
+			PickupDate: moment(this.state.startDate).format(),
+			DropOffDate: moment(this.state.endDate).format()
+		};
+
+		console.log(formData);
+
+ 		let _this = this;
+ 		axios.post('/api/reservation', formData)
+ 			.then((response) => {
+ 				console.log(response);
+ 			})
+ 			.catch((error) => {
+ 				// Somehow figure out what the error was
+ 				alert(error);
+ 				console.log(error);
+ 			});
+	}
+
 	render() {
 		return (
 			<section className='cars'>
+				<Modal show={this.state.showModal} onHide={()=>this.setState({ showModal: false })}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h4>Book Your Car</h4>
+
+						<p>Pickup Date</p>
+						<DatePicker
+							selected={this.state.startDate}
+							onChange={(e)=>this.setState({startDate: e})}
+						 />
+
+						<p>Drop-Off Date</p>
+						<DatePicker
+							selected={this.state.endDate}
+							onChange={(e)=>this.setState({endDate: e})}
+						 />
+          </Modal.Body>
+          <Modal.Footer>
+						<Button bsStyle="success" onClick={()=>this.bookSend()}>Book</Button>
+            <Button onClick={()=>this.setState({ showModal: false })}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+
 				<form>
 					<label htmlFor='cars__pick-up'>Pick a pick-up date</label>
 					<input
@@ -139,6 +210,7 @@ export default class Cars extends Component {
 										<th>Year</th>
 										<th>Mileage</th>
 										<th>Price per Day</th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -147,13 +219,13 @@ export default class Cars extends Component {
 											<tr
 												id={car.VIN}
 												key={car.VIN}
-												onClick={this.handleTableRowClick.bind(this)}
 											>
-												<td>{car.Make}</td>
-												<td>{car.Model}</td>
-												<td>{car.Year}</td>
-												<td>{car.Odometer}</td>
-												<td>{car.DailyFee}</td>
+												<td onClick={this.handleTableRowClick.bind(this)}>{car.Make}</td>
+												<td onClick={this.handleTableRowClick.bind(this)}>{car.Model}</td>
+												<td onClick={this.handleTableRowClick.bind(this)}>{car.Year}</td>
+												<td onClick={this.handleTableRowClick.bind(this)}>{car.Odometer}</td>
+												<td onClick={this.handleTableRowClick.bind(this)}>{car.DailyFee}</td>
+												<td><Button bsStyle="primary" id={car.VIN} onClick={(e)=>this.bookCar(e)}>Book</Button></td>
 											</tr>
 										);
 									})}
