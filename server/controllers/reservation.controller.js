@@ -37,7 +37,7 @@ module.exports = {
 
   get(req, res, next) {
 		const id = req.params.id;
-		connection.query(`SELECT * FROM reservation WHERE ReservationID=${id}`, (error, response) => {
+		connection.query(`SELECT reservation.ReservationID, reservation.MemberID, reservation.VIN, reservation.AccessCode, reservation.PickupDate, reservation.DropOffDate, car.Make, car.Model, car.Year from reservation JOIN car ON reservation.VIN = car.VIN WHERE ReservationID=${id}`, (error, response) => {
 			if(error) {
 				next(error);
 			} else {

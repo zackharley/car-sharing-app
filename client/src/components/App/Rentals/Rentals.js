@@ -17,7 +17,7 @@ export default class Rentals extends Component {
 		let _this = this;
 
 		if(auth.isAdmin() === 1) {
-			axios.get(`/api/reservation`)
+			axios.get(`/api/reservation/adminAll`)
 				.then((response) => {
 					console.log(response.data);
 					_this.setState({
