@@ -70,7 +70,7 @@ module.exports = {
 
 	getLoginDetails(req, res, next) {
 		const email = req.params.email;
-		connection.query(`SELECT Passwd FROM member WHERE Email="${email}"`, (error, response) => {
+		connection.query(`SELECT * FROM member WHERE Email="${email}"`, (error, response) => {
 			if(error) {
 				next(error);
 			} else {

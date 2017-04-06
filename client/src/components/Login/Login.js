@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Form, FormGroup, Col, FormControl, Button, ControlLabel } from 'react-bootstrap';
 
+import auth from '../../util/auth.js';
+
 export default class Login extends Component {
 
 	constructor(props) {
@@ -27,17 +29,22 @@ export default class Login extends Component {
 	handleSubmit(e) {
 		e.preventDefault();
 
-		let _this = this;
-		axios.get(`/api/members/login/${this.state.email}/`)
-			.then((response) => {
-				console.log(response.data[0]);
-				// _this.setState({
-				// 	rentals: response.data
-				// });
-			})
-			.catch((error) => {
-				console.error(error);
-			})
+		if(this.state.email !== '') {
+			let _this = this;
+			axios.get(`/api/members/login/${this.state.email}/`)
+				.then((response) => {
+					if(response.data !== [] && response.data !== undefined) {
+						if(response.data[0].Passwd === this.state.password) {
+							auth.login(response.data[0].MemberID, response.data[0].isAdmin);
+
+							this.props.history.push('/');
+						}
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				})
+		}
 	}
 
 	render() {
