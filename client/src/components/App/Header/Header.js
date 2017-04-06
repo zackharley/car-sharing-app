@@ -43,7 +43,7 @@ export default class Header extends Component {
 
 		if(this.state.isAdmin) {
 			adminDropdown = <AdminDropdown handleHeaderClick={this.handleHeaderClick.bind(this)} />;
-		} else {
+		} else if(this.state.loggedIn) {
 			myRentals = <NavItem onClick={this.handleMyRentalsClick.bind(this)}>My Rentals</NavItem>
 		}
 
