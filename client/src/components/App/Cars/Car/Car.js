@@ -1,5 +1,6 @@
 import './Car.scss';
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 
 export default class Car extends Component {
@@ -29,11 +30,17 @@ export default class Car extends Component {
 		console.log('Reserving car');
 	}
 
+	handleHistoryClick(e) {
+		let vin = this.props.match.params.vin;
+		this.props.history.push(`/cars/${vin}/history`);
+	}
+
 	render() {
 		return (
 			<section>
 				<h1>{this.props.match.params.vin}</h1>
-				<button onClick={this.handleReserveCar.bind(this)}>Reserve Car</button>
+				<Button onClick={this.handleReserveCar.bind(this)}>Reserve Car</Button>
+				<Button onClick={this.handleHistoryClick.bind(this)}>See Reservation History</Button>
 			</section>
 		);
 	}

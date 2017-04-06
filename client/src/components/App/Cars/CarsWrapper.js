@@ -7,8 +7,8 @@ export default class CarWrapper extends Component {
 
 	render() {
 		if(auth.isAdmin()) {
-			return <AdminCars />
+			return <AdminCars history={this.props.history} />
 		} 
-		return <Cars />
+		return <Cars history={this.props.history} />
 	}
 }
