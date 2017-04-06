@@ -5,7 +5,6 @@ const connection = mysql.createConnection({
 	user: 'root',
 	password: '',
 	database: 'qcar'
-
 });
 
 module.exports = connection;

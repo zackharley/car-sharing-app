@@ -1,7 +1,8 @@
 import './Router.scss';
 import React, { PropTypes, Component } from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
+import { browserHistory } from 'react-router'
 import Home from './Home/Home';
 import Register from './Register/Register';
 import Login from './Login/Login';
@@ -22,13 +23,24 @@ import AddCar from './App/Cars/AddCar/AddCar';
 import CarHistory from './App/Cars/Car/CarHistory/CarHistory';
 import Location from './App/Locations/Location/Location';
 
-export default class Router extends Component {
+import auth from '../util/auth.js';
 
+export default class Router extends React.Component {
 	render() {
+		var redirect = <Redirect to="/login"/>
+
+		auth.sync(function() {
+			var loggedIn = auth.isLoggedIn();
+
+			if(loggedIn)
+				redirect = <div></div>;
+		});
+
 		return (
 			<BrowserRouter>
 				<section className='root'>
 					<Route path='/' component={Header} />
+					{ redirect }
 					<Switch>
 						<Route exact path='/' component={Home} />
 						<Route exact path='/register' component={Register} />
@@ -49,5 +61,4 @@ export default class Router extends Component {
 			</BrowserRouter>
 		);
 	}
-
 }
