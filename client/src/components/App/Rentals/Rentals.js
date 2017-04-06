@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import axios from'axios';
-import { Col, Panel, Table } from 'react-bootstrap';
+import { Col, Panel, Table, Button } from 'react-bootstrap';
 import auth from '../../../util/auth';
+
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default class Rentals extends Component {
 
@@ -9,7 +14,8 @@ export default class Rentals extends Component {
 		super(props);
 		this.state = {
 			rentals: [],
-			currentUser: auth.getCurrentUser()
+			currentUser: auth.getCurrentUser(),
+			datePick: moment()
 		};
 	}
 
@@ -19,7 +25,6 @@ export default class Rentals extends Component {
 		if(auth.isAdmin() === 1) {
 			axios.get(`/api/reservation/adminAll`)
 				.then((response) => {
-					console.log(response.data);
 					_this.setState({
 						rentals: response.data
 					});
@@ -44,12 +49,43 @@ export default class Rentals extends Component {
 		this.props.history.push(`/member/${this.state.currentUser}/rentals/${Number(e.target.id)}`);
 	}
 
+	filterDate() {
+		console.log(`/api/reservation/date/${moment(this.state.datePick).format("YYYY-MM-DD")}/`);
+
+		axios.get(`/api/reservation/date/${moment(this.state.datePick).format("YYYY-MM-DD")}/`)
+			.then((response) => {
+				this.setState({rentals: response.data});
+			})
+			.catch((error) => {
+				console.error(error);
+			})
+	}
+
 	render() {
+		let adminSelect = null;
+
+		if(auth.isAdmin() === 1) {
+			adminSelect =
+				<div>
+					<label htmlFor='cars__pick-up'>Date Filter</label>
+					<DatePicker
+						selected={this.state.datePick}
+						onChange={(e)=>this.setState({datePick: e})}
+					 />
+
+					 <Button onClick={()=>this.filterDate()}>Apply Filter</Button>
+				</div>
+		}
+
 		return (
 			<Col mdOffset={2} md={8}>
 				<Panel>
 					<h1>My Rental History</h1>
 					<h4>These are all of your rentals.</h4>
+
+					{
+						adminSelect
+					}
 
 					<Table striped bordered condensed hover>
 						<thead>
