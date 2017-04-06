@@ -24,20 +24,28 @@ export default class Header extends Component {
 		this.props.history.push(e.currentTarget.id);
 	}
 
+	handleMyRentalsClick(e) {
+		this.props.history.push('/member/rentals');
+	}
+
 	logout() {
 		auth.logout();
 		this.props.history.push('/login');
 	}
 
 	render() {
-		var logOutButton = null;
-		var adminDropdown = null;
+		let logOutButton = null;
+		let adminDropdown = null;
+		let myRentals = null;
 
 		if(this.state.loggedIn)
 			logOutButton = <NavItem onClick={this.logout.bind(this)}>Log Out</NavItem>;
 
-		if(this.state.isAdmin)
+		if(this.state.isAdmin) {
 			adminDropdown = <AdminDropdown handleHeaderClick={this.handleHeaderClick.bind(this)} />;
+		} else {
+			myRentals = <NavItem onClick={this.handleMyRentalsClick.bind(this)}>My Rentals</NavItem>
+		}
 
 		return (
 			<Navbar staticTop>
@@ -51,9 +59,9 @@ export default class Header extends Component {
 			    		<MenuItem id='/pickup' onClick={this.handleHeaderClick.bind(this)}>Pick Up</MenuItem>
 			    		<MenuItem id='/dropoff' onClick={this.handleHeaderClick.bind(this)}>Drop Off</MenuItem>
 			    	</NavDropdown>
-			    	{/* ONLY RENDER THE AdminDropdown COMPONENT IF THE USER IS AN ADMIN*/}
+			    	{ myRentals }
 			    	{ adminDropdown }
-						{ logOutButton }
+					{ logOutButton }
 			    </Nav>
 			</Navbar>
 		);
