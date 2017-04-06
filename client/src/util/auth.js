@@ -68,5 +68,9 @@ module.exports = {
 
   bindToChange(toBind) {
     reactComponent = toBind;
+  },
+
+  getCurrentUser() {
+    return currentUser;
   }
 }
