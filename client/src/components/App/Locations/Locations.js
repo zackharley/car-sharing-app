@@ -24,6 +24,10 @@ export default class Locations extends Component {
 			});
 	}
 
+	lookAt(e) {
+		this.props.history.push(`/locations/${Number(e.target.id) + 1}`);
+	}
+
 	render() {
 		let locations = this.state.locations;
 		let tableData = [];
@@ -31,12 +35,12 @@ export default class Locations extends Component {
 		for(var location in locations) {
 			tableData.push(
 				<tr key={location}>
-					<td>{ locations[location].StreetNum }</td>
-					<td>{ locations[location].StreetName }</td>
-					<td>{ locations[location].City }</td>
-					<td>{ locations[location].Province }</td>
-					<td>{ locations[location].PostalCode }</td>
-					<td>{ locations[location].NumSpaces }</td>
+					<td id={location} onClick={(e)=>this.lookAt(e)}>{ locations[location].StreetNum }</td>
+					<td id={location} onClick={(e)=>this.lookAt(e)}>{ locations[location].StreetName }</td>
+					<td id={location} onClick={(e)=>this.lookAt(e)}>{ locations[location].City }</td>
+					<td id={location} onClick={(e)=>this.lookAt(e)}>{ locations[location].Province }</td>
+					<td id={location} onClick={(e)=>this.lookAt(e)}>{ locations[location].PostalCode }</td>
+					<td id={location} onClick={(e)=>this.lookAt(e)}>{ locations[location].NumSpaces }</td>
 				</tr>
 			);
 		}
